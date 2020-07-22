@@ -93,7 +93,17 @@ Cognitive load of managing and organising large releases can take its toll, espe
 
 - Agile
 
-  There has been a lot of material written that covers Agile.
+A response to a trend in the industry to separate disciplines into disconnected teams and tasking them to deliver monolithic specs with little context as to the end goal. Epitomised by the "waterfall" process.
+
+Collaboration between self-organising, cross functional teams and their customers/ stakeholders.
+
+Adaptive planning, evolutionary development, early delivery, and continual improvement, and it encourages flexible responses to change.
+
+Adaptive vs. predictive
+Agile vs. waterfall
+Code vs. documentation
+
+Notice that this is all quite high level. Many organisations are failing in their attempts to become agile because they've turned agile into dogma. We sometimes refer to this as Agile (with a capital A). A lot of consultancies are peddling this and it's snake oil.
 
 - Agile Manifesto
 
@@ -103,7 +113,33 @@ Cognitive load of managing and organising large releases can take its toll, espe
   - **Responding to change** over following a plan.
 
 - Extreme Programming
+
+Evolved separately from the agile movement but considered an agile methology.
+
+Month or year long, big bang projects fail to deliver value quickly and responding to changing requirements is costly. Therefore, we should have many short development cycles rather than one long one.
+
+Change is inevitable and systems should be built with that in mind.
+
+XP recognises 4 activities:
+
+1. Coding
+2. Testing
+3. Listening
+4. Designing
+
+and 5 values:
+
+1. Communication
+2. Simplicity
+3. Feedback
+4. Courage
+5. Respect
+
 - Lean
+
+Eliminate waste! Everything in agile and XP ultimately is about reducing waste.
+
+The elimination of waste should be a strong focus of your retros.
 
 ## Traps: 10 mins
 
