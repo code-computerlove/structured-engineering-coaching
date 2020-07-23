@@ -4,9 +4,9 @@
 
 By the end of the session you will:
 
-- Identify and reduce risks in deployment processes.
-- Manage work through a pipeline.
-- Identify and mitigate “anti-patterns” in team processes.
+- Be able to identify and reduce risks in deployment processes.
+- Appreciate the benefit of managing work through a pipeline.
+- Be able to identify and mitigate “anti-patterns” in team processes.
 - Understand the concepts of Agile and Lean.
 
 ## Content
@@ -152,4 +152,5 @@ The elimination of waste should be a strong focus of your retros.
 
 - Single points of failure: technology or people
 - Agile is not a project planning methodology
+- Agile sweatshop
 - Scrumfall, Fragile, Cargo culting
