@@ -13,8 +13,10 @@ By the end of the session you will:
 ## Content
 
 - Introduction to IoC.
-- Introduction to Dependency Inversion.
-- 
+- Dependency Injection.
+- Test Doubles.
+- Gotchas.
+- Refactoring Exercise.
 
 ## Introduction to Inversion of Control (IoC): 10 mins
 
