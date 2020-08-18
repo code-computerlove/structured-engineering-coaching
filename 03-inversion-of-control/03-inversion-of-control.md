@@ -46,7 +46,15 @@ Two possible refactoring options:
 
 Obviously creating objects like this is not feasible for an application of any decent size. 
 
-## Mocking and Faking: 10 minutes
+## Test Doubles: 10 minutes
+
+When writing tests, given that the code we write depends on a contract (interface), we don't necessarily have to use real implementations when writing our tests. Tests that rely on real web services, databases, times, may be brittle and slow. Instead we can swap out our implementation with a test double.
+
+- Fakes - use a dictionary hash-map instead of a real MemoryCache. 
+- Mocks - verify an email was sent using the IEmailServer.Send() method.
+- Stubs - return a canned response when a function is called.
+
+In reality Mocks and Stubs all get lumped into the "Mock" category. The principle is we're providing the code being tested with the necessary scaffolding to perform the action being tested, in a manner that we can verify it was performed correctly.
 
 ## Gotchas: 15 minutes
 
