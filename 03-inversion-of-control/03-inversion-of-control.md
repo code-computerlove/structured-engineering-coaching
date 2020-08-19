@@ -7,26 +7,34 @@ By the end of the session you will:
 - Understand the principle of Inversion of Control.
 - Understand the principle of Dependency Injection.
 - Be able to write code that adheres to IoC.
-- Test using mocks or fakes.
+- Test using mocks and fakes.
 - Configure a dependency injection container.
 
 ## Content
 
 - Introduction to IoC.
+- Inversion of Control by example.
 - Dependency Injection.
+- Which way should dependencies go?
 - Test Doubles.
 - Gotchas.
 - Refactoring Exercise.
 
 ## Introduction to Inversion of Control (IoC): 10 mins
 
-A principle to decouple implementation specifics. Many techniques exist that follow this principle:
+Think of a simple console app. It might have simple procedures to help it render menus and take user input but the main program loop controls and directs everything.
+
+Compare this to a windowed app. It would be unreasonably complicated for the main method to have to control what happens when the window is resized, dragged, minimized etc. Instead, the windowing framework controls all of that and more, and the main method is notified about particular user inputs.
+
+An inversion of the flow of control.
+
+A principle to decouple implementation specifics. Many techniques exist to enable this:
 
 - Callbacks.
 - Event loops.
-- Dependency injection.
 - Template methods.
 - Abstract classes in .net.
+- Dependency injection.
 
 ## Inversion of Control by example: 10 mins
 
