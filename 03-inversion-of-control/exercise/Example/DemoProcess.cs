@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace Example
 {
-    public class DemoProcess
-    {
-	    public async Task Run()
-	    {
-		    var data = File.ReadAllText("data.json");
+	public class DemoProcess
+	{
+		public async Task Run()
+		{
+			var data = File.ReadAllText("data.json");
 
-		    var client = new HttpClient
+			var client = new HttpClient
 			{
 				BaseAddress = new Uri("https://demoexercise.free.beeceptor.com")
 			};
+			
 			var message = new HttpRequestMessage(
 				HttpMethod.Post,
 				$"/endpoint?date={DateTime.UtcNow:O}")
@@ -25,6 +26,6 @@ namespace Example
 
 			var response = await client.SendAsync(message);
 			response.EnsureSuccessStatusCode();
-	    }
-    }
+		}
+	}
 }
