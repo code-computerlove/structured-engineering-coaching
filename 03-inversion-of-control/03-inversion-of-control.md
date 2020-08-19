@@ -34,7 +34,7 @@ Imagine the scenario of a class that reads from a file system, and sends the con
 
 This class has a 'concrete' dependency on the file system, and the FTP server.
 
-But what if we want to read from a zip file instead? or write to an HTTP server?.
+But what if we want to read from a zip file instead? or write to an HTTP server?
 
 Two possible refactoring options:
 
@@ -43,16 +43,23 @@ Two possible refactoring options:
 
 ## Dependency injection: 10 minutes
 
-
 << example of new-ing up manually >>
 
-Obviously creating objects like this is not feasible for an application of any decent size. 
+Sometimes called "poor mans DI". Massively lighter and quicker than an IoC framework. Might be fine for a microservice.
+
+Obviously creating objects like this is not feasible for an application of any decent size.
+
+## Which way should dependencies go? 10 minutes
+
+N-Tier vs onion/ hexagonal architecture.
+
+Is the database really the centre of the world?
 
 ## Test Doubles: 10 minutes
 
 When writing tests, given that the code we write depends on a contract (interface), we don't necessarily have to use real implementations when writing our tests. Tests that rely on real web services, databases, times, may be brittle and slow. Instead we can swap out our implementation with a test double.
 
-- Fakes - use a dictionary hash-map instead of a real MemoryCache. 
+- Fakes - use a dictionary hash-map instead of a real MemoryCache.
 - Mocks - verify an email was sent using the IEmailServer.Send() method.
 - Stubs - return a canned response when a function is called.
 

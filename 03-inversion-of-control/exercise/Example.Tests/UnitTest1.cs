@@ -2,12 +2,12 @@
 
 namespace Example.Tests
 {
-    public class Tests
-    {
-	    [Test]
-        public void Run_WithSourceData_DataIsUploadedWithTimestampInUrl()
-        {
+	public class Tests
+	{
+		[Test]
+		public void Run_WithSourceData_DataIsUploadedWithTimestampInUrl()
+		{
 			// todo
-        }
-    }
+		}
+	}
 }
