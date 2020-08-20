@@ -2,9 +2,9 @@
 
 namespace Example.App
 {
-	internal class Program
+	public class Program
 	{
-		static async Task Main(string[] args)
+		public static async Task Main(string[] args)
 		{
 			var process = new DemoProcess();
 			await process.Run();
