@@ -12,14 +12,11 @@ namespace Example
 		{
 			var data = File.ReadAllText("data.json");
 
-			var client = new HttpClient
-			{
-				BaseAddress = new Uri("https://demoexercise.free.beeceptor.com")
-			};
-			
+			var client = new HttpClient {BaseAddress = new Uri("https://demoexercise.free.beeceptor.com")};
+
 			var message = new HttpRequestMessage(
 				HttpMethod.Post,
-				$"/endpoint?date={DateTime.UtcNow:O}")
+				$"/endpoint?date={DateTimeOffset.UtcNow:O}")
 			{
 				Content = new StringContent(data, Encoding.UTF8, "text/plain")
 			};
