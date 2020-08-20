@@ -71,7 +71,7 @@ When writing tests, given that the code we write depends on a contract (interfac
 - Mocks - verify an email was sent using the IEmailServer.Send() method.
 - Stubs - return a canned response when a function is called.
 
-In reality Mocks and Stubs all get lumped into the "Mock" category. The principle is we're providing the code being tested with the necessary scaffolding to perform the action being tested, in a manner that we can verify it was performed correctly.
+In reality Mocks and Stubs all get lumped into the "Mock" category. Some mocking frameworks have abandoned differentiating to avoid confusion E.G. NSubstitute. The principle is we're providing the code being tested with the necessary scaffolding to perform the action being tested, in a manner that we can verify it was performed correctly.
 
 ## Gotchas: 15 minutes
 
