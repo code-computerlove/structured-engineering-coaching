@@ -77,9 +77,8 @@ In reality Mocks and Stubs all get lumped into the "Mock" category. Some mocking
 
 Some components may seem difficult to inject, or there may be specific ways in how they should be created. This is particuarly the case with components that wrap or interact with lower level system resources such as threads and sockets.
 
-- DateTime.Now.
+- DateTime and DateTimeOffset.
 - HttpClient and HttpClientFactory.
-- Libraries for mocking.
 
 ## Refactoring exercise: 60 minutes
 
