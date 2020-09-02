@@ -46,7 +46,7 @@ Development is slowed by code that:
 
 ```csharp
 // Compound words
-void AddCustomer(customer);
+void AddCustomer(Customer customer);
 
 // Hungarian notation
 string sName;
@@ -73,23 +73,23 @@ var customerName = new char[6];
 void Put(string name);
 void Add(string name);
 void Save(string name);
-```
 
-```csharp
 int currentTotal;
 int runningTotal;
 ```
 
 #### Solutions to bad names
 
-Rename
+- Rename
 
 ### Comments: 5 mins
 
 ```csharp
 int count = 0; // Count starts at 0
 
-var temperature = (sensor - 32.0) / 1.8; // The sensor returns Fahrenheit so we need to convert to Celsius
+var temperature = (sensor - 32.0) / 1.8;
+// The sensor returns Fahrenheit so we need to
+// convert to Celsius
 
 public decimal Execute(){
   // Calculates VAT
@@ -97,7 +97,8 @@ public decimal Execute(){
 }
 
 public VoucherCode IssueVoucherFor(Customer customer) {
-  // Please only pass UK customers as we can't give codes to international customers
+  // Please only pass UK customers as we can't give
+  // codes to international customers
   ...
 }
 ```
@@ -112,15 +113,17 @@ public VoucherCode IssueVoucherFor(Customer customer) {
 ```csharp
 int count = 0;
 
-var temperature = ConvertFahrenheitToCelsius(sensorTemperature);
+var temperature =
+  ConvertFahrenheitToCelsius(sensorTemperature);
 
-public decimal CalculateVat(){
+public decimal CalculateVat() {
   ...
 }
 
 public VoucherCode IssueVoucherFor(Customer customer) {
   if (customer.IsInternational())
-    throw new Exception("Cannot issue vouchers for international customers.");
+    throw new Exception(
+      "Cannot issue vouchers for international customers.");
   ...
 }
 ```
@@ -164,6 +167,42 @@ DRY but beware of so dry it's flammable.
 string FullName() {
   return _firstName + " " + _lastName;
 }
+
+string BillingAddress() {
+  ...
+}
+
+string ShippingAddress() {
+  ...
+}
+```
+
+```csharp
+public class Widgets {
+  private IWidgetApi _widgetApi;
+
+  public Widgets(IWidgetApi widgetApi) {
+      _widgetApi = widgetApi;
+  }
+
+  public Widget Get(int id) {
+    PrepApiForRequest();
+    return _widgetApi.GetWidget(id);
+  }
+
+  public Widget Reserve(int id) {
+    PrepApiForRequest();
+    return _widgetApi.GetWidget(id);
+  }
+
+  // Make sure to call this before each request
+  // as there is temporal coupling in API
+  private void PrepApiForRequest() {
+    _widgetApi.Initialise();
+    _widgetApi.PreloadWidgets();
+    _widgetApi.WarmTheDoohickey();
+  }
+}
 ```
 
 ### Missing objects: 5 mins
@@ -171,7 +210,12 @@ string FullName() {
 #### Data clump
 
 ```csharp
-string FullName(string salutation, string firstName, string lastName);
+string FullName(
+  string salutation,
+  string firstName,
+  string lastName) {
+    ...
+  }
 ```
 
 #### Anaemic object (data structure)
@@ -195,7 +239,9 @@ class Name {
 
 class NameHelper {
   public string FullName(Name name){
-    return name.Salutation + " " + name.FirstName + " " + name.LastName;
+    return name.Salutation +
+    " " + name.FirstName +
+    " " + name.LastName;
   }
 }
 ```
@@ -218,7 +264,9 @@ class Name {
   public string LastName { get; set; }
 
   public string FullName(){
-    return Salutation + " " + FirstName + " " + LastName;
+    return Salutation + " " +
+      FirstName + " " +
+      LastName;
   }
 }
 ```
@@ -262,7 +310,8 @@ class Bill {
   private Food _food;
   private Drinks _drinks;
   private IVat _vat;
-  private IEatOutToHelpOut _eatOutToHelpOut; // I was used once upon a time
+  // I was used once upon a time
+  private IEatOutToHelpOut _eatOutToHelpOut;
 
   public Bill(IVat vat, IEatOutToHelpOut eatOutToHelpOut) {
     _vat = vat;
@@ -272,7 +321,8 @@ class Bill {
   public decimal Total() {
     var subTotal = _food.Total() + _drinks.Total();
     var vatTotal = _vat.For(_food) + _vat.For(_drink);
-    // var eatOutToHelpOutDiscount = _eatOutToHelpOut.DiscountFor(subTotal + vatTotal);
+    var total = subTotal + vatTotal;
+    // var eatOutToHelpOutDiscount = _eatOutToHelpOut.DiscountFor(total);
     ...
   }
 }
@@ -295,6 +345,7 @@ class Bill {
   public decimal Total() {
     var subTotal = _food.Total() + _drinks.Total();
     var vatTotal = _vat.For(_food) + _vat.For(_drink);
+    var total = subTotal + vatTotal;
     ...
   }
 }
@@ -304,6 +355,8 @@ class Bill {
 
 ```csharp
 class Account {
+  private AccountType _type;
+
   public decimal Interest() {
     if(_type == AccountType.Checking) {
       ...
@@ -312,9 +365,7 @@ class Account {
     }
   }
 }
-```
 
-```csharp
 decimal GetTotal(bool isWeekend) {
   if(isWeekend) {
     ...
@@ -332,21 +383,31 @@ decimal GetTotal(bool isWeekend) {
 - Use factories
 
 ```csharp
-interface IAccount
+abstract class Account
 {
-    decimal Interest();
+    public abstract decimal Interest();
 }
 
-class CheckingAccount : IAccount {
-  public decimal Interest() {
+class CheckingAccount : Account {
+  public override decimal Interest() {
     ...
   }
 }
 
-class SavingsAccount : IAccount {
-  public decimal Interest() {
+class SavingsAccount : Account {
+  public override decimal Interest() {
     ...
   }
+}
+```
+
+```csharp
+decimal GetWeekendTotal() {
+  ...
+}
+
+decimal GetWeekDayTotal() {
+  ...
 }
 ```
 
@@ -380,33 +441,25 @@ class SurveyParticipants {
 
 #### Solutions for null
 
-- Null object pattern
-- C# nullable refs etc.
+- Let it fail
+- Use C# 8 non-nullable reference types
 
 ```csharp
-class NullCustomer : ICustomer {
-  public string Email() {
-    return "Customer not found";
-  }
-}
+class Customers : ICustomers {
+  private ICustomersDb _database;
 
-class SurveyParticipants {
-  private List<int> _customerIds;
-
-  private ICustomers _customers;
-
-  public SurveyParticipants(ICustomers customers) {
-      _customers = customers;
+  public Customers(ICustomersDb database) {
+    _database = database;
   }
 
-  public string Report() {
-    var stringBuilder = new StringBuilder();
-    stringBuilder.AppendLine("Participants:");
+  public Customer Get(int id) {
+    var customer = _database.Get(id);
 
-    foreach (var id in _customerIds) {
-      var customer = _customers.Get(id);
-      stringBuilder.AppendLine(customer.Email());
-    }
+    if (customer == null)
+      throw new NotFoundException(
+        "Customer doesn't exist");
+
+    return customer;
   }
 }
 ```
