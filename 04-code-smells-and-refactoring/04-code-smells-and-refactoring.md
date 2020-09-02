@@ -24,7 +24,7 @@ By the end of the session you will:
 
 - A review of the refactorings
 
-## What do devs spend most of their time doing?: 10mins
+## What do devs spend most of their time doing?: 10 mins
 
 > Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to write new code. ...[Therefore,] making it easy to read makes it easier to write.
 >
@@ -40,7 +40,7 @@ Development is slowed by code that:
 
 ## Common problems in the code base AKA code smells
 
-### Naming
+### Naming: 5 mins
 
 #### Type embedded in name
 
@@ -65,7 +65,6 @@ int totNumOfCusts;
 
 // Misleading
 var customerName = new char[6];
-
 ```
 
 #### Inconsistent
@@ -85,7 +84,7 @@ int runningTotal;
 
 Rename
 
-### Comments
+### Comments: 5 mins
 
 ```csharp
 int count = 0; // Count starts at 0
@@ -126,7 +125,7 @@ public VoucherCode IssueVoucherFor(Customer customer) {
 }
 ```
 
-### Duplicated code
+### Duplicated code: 5 mins
 
 ```csharp
 string BillingAddress() {
@@ -167,7 +166,7 @@ string FullName() {
 }
 ```
 
-### Missing objects
+### Missing objects: 5 mins
 
 #### Data clump
 
@@ -238,7 +237,7 @@ class Order {
 }
 ```
 
-### Fat methods and classes
+### Fat methods and classes: 5 mins
 
 ```csharp
 class LaaaaaaaaaaaargeClass {
@@ -256,7 +255,7 @@ class LaaaaaaaaaaaargeClass {
 - Extract class
 - Look for feature envy
 
-### Dead/ unreachable code
+### Dead/ unreachable code: 5 mins
 
 ```csharp
 class Bill {
@@ -301,7 +300,7 @@ class Bill {
 }
 ```
 
-### Special cases
+### Special cases: 5 mins
 
 ```csharp
 class Account {
@@ -351,7 +350,7 @@ class SavingsAccount : IAccount {
 }
 ```
 
-### Null AKA the billion dollar mistake
+### Null AKA the billion dollar mistake: 5 mins
 
 ```csharp
 class SurveyParticipants {
@@ -412,7 +411,7 @@ class SurveyParticipants {
 }
 ```
 
-## A review of the refactorings
+## A review of the refactorings: 5 mins
 
 - Rename
 - Extract method
