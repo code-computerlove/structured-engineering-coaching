@@ -464,11 +464,14 @@ class Customers : ICustomers {
 }
 ```
 
-## A review of the refactorings: 5 mins
+## A review of common refactorings: 5 mins
 
 - Rename
 - Extract method
 - Extract class
+- Extract abstract class
+- Extract interface
+- Move method to other class
 
 Always refactor safely! Where possible:
 
