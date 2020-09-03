@@ -10,10 +10,10 @@ namespace WidgetCo.Tests
 		public void ItShouldThrowAnInvalidException()
 		{
 			var customerDetails = new CustomerDetails {Email = "john@doe.com"};
-			var orderLine = new OrderLine {ProductCode = "G12", Quantity = 1};
+			var orderLine = new UnvalidatedOrderLine {ProductCode = "G12", Quantity = 1};
 			var orderForm = new OrderForm {CustomerDetails = customerDetails, OrderLines = new[] {orderLine}};
 
-			var sut = new Orders(A.Dummy<ICustomers>(), A.Dummy<IProcessedOrderLineFactory>(), A.Dummy<IFulfilment>());
+			var sut = new Orders(A.Dummy<ICustomers>(), A.Dummy<IOrderLineFactory>(), A.Dummy<IFulfilment>());
 
 			Assert.Throws<InvalidException>(() => sut.Process(orderForm));
 		}
@@ -25,10 +25,10 @@ namespace WidgetCo.Tests
 		public void ItShouldThrowAnInvalidException()
 		{
 			var customerDetails = new CustomerDetails {Email = "john@doe.com"};
-			var orderLine = new OrderLine {ProductCode = "G1234", Quantity = 1};
+			var orderLine = new UnvalidatedOrderLine {ProductCode = "G1234", Quantity = 1};
 			var orderForm = new OrderForm {CustomerDetails = customerDetails, OrderLines = new[] {orderLine}};
 
-			var sut = new Orders(A.Dummy<ICustomers>(), A.Dummy<IProcessedOrderLineFactory>(), A.Dummy<IFulfilment>());
+			var sut = new Orders(A.Dummy<ICustomers>(), A.Dummy<IOrderLineFactory>(), A.Dummy<IFulfilment>());
 
 			Assert.Throws<InvalidException>(() => sut.Process(orderForm));
 		}
@@ -40,14 +40,14 @@ namespace WidgetCo.Tests
 		public void ItShouldThrowNotFoundException()
 		{
 			var customerDetails = new CustomerDetails {Email = "john@doe.com"};
-			var orderLine = new OrderLine {ProductCode = "G123", Quantity = 1};
+			var orderLine = new UnvalidatedOrderLine {ProductCode = "G123", Quantity = 1};
 			var orderForm = new OrderForm {CustomerDetails = customerDetails, OrderLines = new[] {orderLine}};
 
 			var productCatalogue = A.Fake<IProductCatalogue>();
 			A.CallTo(() => productCatalogue.Get(orderLine.ProductCode))
 				.Throws(new NotFoundException("Gizmo not found: " + orderLine.ProductCode));
 
-			var processedOrderLineFactory = new ProcessedOrderLineFactory(productCatalogue);
+			var processedOrderLineFactory = new OrderLineFactory(productCatalogue);
 
 			var sut = new Orders(A.Dummy<ICustomers>(), processedOrderLineFactory, A.Dummy<IFulfilment>());
 
@@ -61,14 +61,14 @@ namespace WidgetCo.Tests
 		public void ItShouldBeIncludedOnTheOrderSentToFulfilment()
 		{
 			var customerDetails = new CustomerDetails {Email = "john@doe.com"};
-			var orderLine = new OrderLine {ProductCode = "W1234", Quantity = 1};
+			var orderLine = new UnvalidatedOrderLine {ProductCode = "W1234", Quantity = 1};
 			var orderForm = new OrderForm {CustomerDetails = customerDetails, OrderLines = new[] {orderLine}};
 
 			var gizmo = new Gizmo {Code = orderLine.ProductCode};
 			var productCatalogue = A.Fake<IProductCatalogue>();
 			A.CallTo(() => productCatalogue.Get(orderLine.ProductCode)).Returns(gizmo);
 
-			var processedOrderLineFactory = new ProcessedOrderLineFactory(productCatalogue);
+			var processedOrderLineFactory = new OrderLineFactory(productCatalogue);
 
 			var fulfilment = A.Fake<IFulfilment>();
 			Order capturedOrder = null;
@@ -85,14 +85,14 @@ namespace WidgetCo.Tests
 		public void ItShouldIncludeQuantityOnTheOrderSentToFulfilment()
 		{
 			var customerDetails = new CustomerDetails {Email = "john@doe.com"};
-			var orderLine = new OrderLine {ProductCode = "G123", Quantity = 10.5m};
+			var orderLine = new UnvalidatedOrderLine {ProductCode = "G123", Quantity = 10.5m};
 			var orderForm = new OrderForm {CustomerDetails = customerDetails, OrderLines = new[] {orderLine}};
 
 			var gizmo = new Gizmo {Code = orderLine.ProductCode};
 			var productCatalogue = A.Fake<IProductCatalogue>();
 			A.CallTo(() => productCatalogue.Get(orderLine.ProductCode)).Returns(gizmo);
 
-			var processedOrderLineFactory = new ProcessedOrderLineFactory(productCatalogue);
+			var processedOrderLineFactory = new OrderLineFactory(productCatalogue);
 
 			var fulfilment = A.Fake<IFulfilment>();
 			Order capturedOrder = null;

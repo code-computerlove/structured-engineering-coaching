@@ -12,7 +12,7 @@ namespace WidgetCo.Tests
 			var customerDetails = new CustomerDetails {Email = ""};
 			var orderForm = new OrderForm {CustomerDetails = customerDetails};
 
-			var sut = new Orders(A.Dummy<ICustomers>(), A.Dummy<IProcessedOrderLineFactory>(), A.Dummy<IFulfilment>());
+			var sut = new Orders(A.Dummy<ICustomers>(), A.Dummy<IOrderLineFactory>(), A.Dummy<IFulfilment>());
 
 			Assert.Throws<InvalidException>(() => sut.Process(orderForm));
 		}
@@ -30,7 +30,7 @@ namespace WidgetCo.Tests
 			A.CallTo(() => customers.Get(customerDetails.Email))
 				.Throws(new NotFoundException("Customer not recognised."));
 
-			var sut = new Orders(customers, A.Dummy<IProcessedOrderLineFactory>(), A.Dummy<IFulfilment>());
+			var sut = new Orders(customers, A.Dummy<IOrderLineFactory>(), A.Dummy<IFulfilment>());
 
 			Assert.Throws<NotFoundException>(() => sut.Process(orderForm));
 		}
@@ -53,7 +53,7 @@ namespace WidgetCo.Tests
 
 			var orderForm = new OrderForm {CustomerDetails = customerDetails};
 
-			var sut = new Orders(customers, A.Dummy<IProcessedOrderLineFactory>(), fulfilment);
+			var sut = new Orders(customers, A.Dummy<IOrderLineFactory>(), fulfilment);
 
 			sut.Process(orderForm);
 
