@@ -1,4 +1,4 @@
-# Legacy code
+# Dealing with legacy code
 
 ## Goals
 
