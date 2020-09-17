@@ -74,3 +74,4 @@ Make private methods public.
 
 - Boy scout rule.
 - Linting tools.
+- Broken windows.
