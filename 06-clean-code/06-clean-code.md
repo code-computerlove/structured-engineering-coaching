@@ -6,33 +6,79 @@ By the end of the session you will:
 
 ## Content
 
-## AKA Habitability
+## What is a programming language
 
-As we said back in session 4, 10:1 ratio reading to writing but clean code is more than just readability. Cleanliness might be considered superficial so some people prefer the term "Habitability".
+### Machine code
 
-> Habitability is the characteristic of source code that enables programmers, coders, bug-fixers, and people coming to the code later in its life to understand its construction and intentions and to change it comfortably and confidently.
->
-> Habitability makes a place liveable, like home. And this is what we want in software - that developers feel at home, can place their hands on any item without having to think deeply about where it is.
->
-> -- Richard P. Gabriel
+```x86
+05 2A 00
+```
 
-## What is source code
+### Assembly
 
-Review:
+```assembly
+add 42 ax
+```
 
-- Machine code E.G. 05 2A 00 (add 42 to the accumulator)
-- Assembly E.G. add 42 ax (add 42 to the accumulator). Symbolic representation of instructions and memory addresses
-- Low level (implicitly procedural) E.G. C
+```assembly
+section .text
+  global_start               ;must be declared for linker (ld)
 
-As far as a CPU is concerned there is no such thing as variables, if statements, functions, methods, mutability or objects.
+_start:                      ;tells linker entry point
+  mov    edx,len             ;message length
+  mov    ecx,msg             ;message to write
+  mov    ebx,1               ;file descriptor (stdout)
+  mov    eax,4               ;system call number (sys_write)
+  int    0x80                ;call kernel
+
+  mov    eax,1               ;system call number (sys_exit)
+  int    0x80                ;call kernel
+
+section .data
+msg db 'Hello, world!', 0xa  ;string to be printed
+len equ $ - msg              ;length of the string
+```
+
+Symbolic representation of instructions and memory addresses.
+
+### Low level
+
+```c
+int main() {
+   printf("Hello, World!");
+   return 0;
+}
+```
+
+Game changing leap in userbility but still implicitly procedural.
+
+### High level
+
+```csharp
+public class Volume {
+  private readonly float _maxVolume;
+  private float _currentVolume;
+
+  public Volume(float maxVolume) {
+    _maxVolume = maxVolume;
+    _currentVolume = 0f;
+  }
+
+  public float CurrentLevel() {
+    return _currentVolume / _maxVolume * 100f;
+  }
+
+  public void Add(float amount) {
+    _currentVolume = new[] {_maxVolume, _currentVolume + amount}.Min();
+  }
+}
+```
+
+As far as a CPU is concerned there is no such thing as variables, arrays, if statements, functions, methods, namespaces, immutability, encapsulation or objects. Programming languages are abstractions for people.
 
 At the end of the day, some bits in memory will have changed.
 
-- High level E.G. C#, F#, JavaScript, Fortran, Lisp, Go, T-SQL
-
-Programming languages are abstractions for people.
-
-- The Holodeck 😉
+### HolodeckScript 😉
 
 Since the dawn of time, business has dreamed of not needing devs.
 
@@ -54,13 +100,40 @@ This language is Smalltalk. In some ways the industry has gone backwards from wh
 >
 > -- Kent Beck
 
-There are no new ideas. But the same ones have been discovered dozens of times over the decades.
+There are no new ideas. But the same ones have been discovered dozens of times over the decades. The main advances in computer languages are generally user friendliness.
 
-## Learn multiple languages.
+## Learn multiple languages
 
 If all you have is a hammer then every problem looks like an an abstract factory interface needing a concrete implementation to be late dispatched in via an IoC framework.
 
-Many problems with a code base start when people focus on what code to write instead of how to solve the problem. If you don't have an appreciation for the different paradigms then you're not considering all solutions to the problem.
+Learn different paradigms and try something non-"C style".
+
+```fsharp
+module String = // Module to make C# string extensions work more like F#
+  let trim (s:string) = s.Trim()
+
+  let toLower (s:string) = s.ToLowerInvariant()
+
+  let replace (oldChar:char) (newChar:char) (s:string) = s.Replace(oldChar, newChar)
+
+let replaceSpaceWithHyphen = String.replace ' ' '-'
+
+let canonicalize = String.trim >> String.toLower >> replaceSpaceWithHyphen
+```
+
+Many problems with a code base start when people focus on what code to write instead of how to solve the problem. If you don't have an appreciation of different languages then you're not considering all solutions to the problem.
+
+If you want to have your mind totally blown, look at Prolog which was first released in 1972.
+
+## AKA Habitability
+
+As we said back in session 4, 10:1 ratio reading to writing but clean code is more than just readability. Cleanliness might be considered superficial so some people prefer the term "Habitability".
+
+> Habitability is the characteristic of source code that enables programmers, coders, bug-fixers, and people coming to the code later in its life to understand its construction and intentions and to change it comfortably and confidently.
+>
+> Habitability makes a place liveable, like home. And this is what we want in software - that developers feel at home, can place their hands on any item without having to think deeply about where it is.
+>
+> -- Richard P. Gabriel
 
 ## Imagination time
 
@@ -96,7 +169,7 @@ Problem 3, why are we in a mansion? No one needs a mansion.
 
 Code bases don't start as mansions.
 
-Worse is better. Quality does not increase with functionality.
+Worse is better. Quality does not increase with functionality. Less functionality (the "worse" in the oxymoron) may lead to better quality.
 
 Recognise that architecture needs to evolve over time. What was the correct architecture yesterday may not be the correct architecture today. This is fine and expected as business requirements will change over time.
 
@@ -118,10 +191,11 @@ Treat tests like any other code. Refactor. Remove duplication. Delete when no lo
 
 There is no magic process for writing clean code. Clean code is usually achieved through refinement. Don't skimp on refactoring.
 
-Parkinson's Law of Triviality
-bikeshedding
+Parkinson's Law of Triviality.
 
-Prioritise difficult or uncertain tasks ahead of those you're confident about.
+Recognise when you're bikeshedding.
+
+Prioritise difficult or uncertain tasks ahead of those you're confident about and work to break them down and remove uncertainty. Otherwise you may end up in sunken cost fallacy death march.
 
 A well maintained code base should be bikesheds all the way down.
 
