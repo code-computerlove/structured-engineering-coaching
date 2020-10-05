@@ -2,11 +2,19 @@
 
 ## Goals
 
-By the end of the session you will:
+A philosophical review of the sessions so far.
 
 ## Content
 
-## What is a programming language
+- What is a programming language's purpose?
+- Learn multiple languages
+- Clean code AKA Habitability
+- Imagination time
+- Tests as living documentation
+- Clean code is hard
+- The campsite rule
+
+## What is a programming language's purpose
 
 ### Machine code
 
@@ -41,7 +49,7 @@ len equ $ - msg              ;length of the string
 
 Symbolic representation of instructions and memory addresses.
 
-### Low level
+### Between high and low
 
 ```c
 int main() {
@@ -50,7 +58,7 @@ int main() {
 }
 ```
 
-Game changing leap in userbility but still implicitly procedural.
+Game changing leap in userbility. Originally considered a high level language it now sits somewhere between high and low.
 
 ### High level
 
@@ -78,11 +86,13 @@ As far as a CPU is concerned there is no such thing as variables, arrays, if sta
 
 At the end of the day, some bits in memory will have changed.
 
+Many problems with a code base start when people focus on what code to write instead of how to solve the problem. If you don't have an appreciation of different languages then you're not considering all solutions to the problem.
+
 ### HolodeckScript 😉
 
 Since the dawn of time, business has dreamed of not needing devs.
 
-> There's no point in me teaching you C because by the time you leave university C and C style programming languages will be obsolete.
+> There's no point in me teaching you C because by the time you leave university C will be obsolete.
 >
 > -- Andrew Grant's computer science teacher in the mid 90s
 
@@ -90,7 +100,7 @@ All attempts at getting business people to produce code have failed.
 
 OOP was supposed to be HolodeckScript!
 
-## A shiny new language
+### A shiny new language
 
 A language with no source files. Objects are created and edited directly in an IDE whilst the program is running. Able to pause and modify the program. Able to interactively fix bugs and errors whilst they're happening.
 
@@ -100,13 +110,13 @@ This language is Smalltalk. In some ways the industry has gone backwards from wh
 >
 > -- Kent Beck
 
-There are no new ideas. But the same ones have been discovered dozens of times over the decades. The main advances in computer languages are generally user friendliness.
+It's often said that, "there are no new ideas". But in our discipline the same ones are discovered regularly. The main advances in computer languages are generally user friendliness.
 
 ## Learn multiple languages
 
-If all you have is a hammer then every problem looks like an an abstract factory interface needing a concrete implementation to be late dispatched in via an IoC framework.
+If all you have is a hammer, then every problem looks like an an abstract factory interface needing a concrete implementation to be late dispatched in via an IoC framework.
 
-Learn different paradigms and try something non-"C style".
+Learn different paradigms and learn something non-"C style".
 
 ```fsharp
 module String = // Module to make C# string extensions work more like F#
@@ -121,11 +131,9 @@ let replaceSpaceWithHyphen = String.replace ' ' '-'
 let canonicalize = String.trim >> String.toLower >> replaceSpaceWithHyphen
 ```
 
-Many problems with a code base start when people focus on what code to write instead of how to solve the problem. If you don't have an appreciation of different languages then you're not considering all solutions to the problem.
-
 If you want to have your mind totally blown, look at Prolog which was first released in 1972.
 
-## AKA Habitability
+## Clean code AKA Habitability
 
 As we said back in session 4, 10:1 ratio reading to writing but clean code is more than just readability. Cleanliness might be considered superficial so some people prefer the term "Habitability".
 
