@@ -24,6 +24,10 @@ C++ as a Frankenstein monster of ADT for namespacing and enough OOP buzzwords to
 
 "OO" languages do not drive you towards OOP.
 
+OO is not:
+- Classes (js uses prototypes)
+- Static typing (python and js are both object orientated)
+
 ## Messages (and to a lesser degree, objects)
 
 ## Bad analogies
