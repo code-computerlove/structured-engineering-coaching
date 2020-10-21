@@ -19,20 +19,45 @@ No code organisation. No management of complexity.
 
 The first paradigm.
 
-- selection E.G. if
-- repetition E.G. while/ for
-- blocks {}
+- conditional statements
+
+```csharp
+if (widgets.Count >= 200) { ... }
+```
+
+- loops
+
+```csharp
+while (widget.Count >=) { ... }
+```
+
 - subroutines
+
+```basic
+GOSUB 370
+```
 
 ### Modular programming
 
-Managing complexity by separating code into modules.
+Managing complexity by separating code into modules, assemblies or classes.
 
 ### Abstract data types (ADT)
 
 Managing complexity by type abstraction.
 
 More than just data structures.
+
+```fsharp
+type PhoneNumber = {
+  number: string
+  extension: string option
+}
+
+type ContactDetail =
+| Email of string
+| Mobile of string
+| Phone of PhoneNumber
+```
 
 ### Alan Kay flavoured Object Oriented Programming (OOP)
 
@@ -81,21 +106,48 @@ The truth of the matter is that C++ flavour languages are still so popular decad
 
 However, there are also many examples in the industry of successful software products and the companies behind them disappearing without trace when the software was unable to adapt or deliver new features in a timely manner.
 
+At Code we recognise that OOP is more than just syntax and that "OOP" languages do not automatically produce well architected, OO code. We also recognise that many of Alan Kay's ideas have remained popular in the agile and XP communities and we try to incorporate them into our own work.
 
+## Practical - "OO" code vs OO code
 
-"OOP" languages do not drive you towards OOP.
+### Objects are not a collection of properties
 
-OO is not:
+```csharp
+public class PetrolTank
+{
+  public float MaxFuelInGallons { get; }
+  public float CurrentFuelInGallons { get; private set; }
 
-- Classes: JS originally used prototypes. It now has classes as well.
-- Static typing: Python and JS both support OOP. In fact the original OOP language, Smalltalk, was dynamic.
+  public PetrolTank(float maxFuelInGallons, float currentFuelInGallons)
+  {
+    MaxFuelInGallons = maxFuelInGallons;
+    CurrentFuelInGallons = currentFuelInGallons;
+  }
+}
+```
 
-## Bad analogies
+```csharp
+public class PetrolTank
+{
+  private float _maxFuelInGallons;
+  private float _currentFuelInGallons;
+
+  public PetrolTank(float maxFuelInGallons, float currentFuelInGallons)
+  {
+    _maxFuelInGallons = maxFuelInGallons;
+    _currentFuelInGallons = currentFuelInGallons;
+  }
+
+  public float CurrentLevel => _currentFuelInGallons / _maxFuelInGallons * 100.0;
+}
+```
+
+### Bad analogies
 
 Car has 4 wheels. Leads to trying to simulate the real world.
 
 ```csharp
-abstract class Vehicle, IReadOnlyList<Wheel>
+abstract class Vehicle, IReadOnly<Wheel>
 {
     abstract void Start();
     abstract void Stop();
@@ -126,7 +178,7 @@ class Tank : Vehicle
 
 Square is a type of rectangle?
 
-IShape in general
+Shape in general
 
 ```csharp
 abstract class Shape { }
@@ -144,60 +196,13 @@ class Square : Shape { }
 class Square : Rectangle { }
 ```
 
-## It's not collections of properties
-
-```csharp
-interface IShape
-{
-    int Width { get; set; }
-    int Height { get; set; }
-}
-```
-
-Objects are about behaviour not data.
-
-## It’s not taxonomy
+### It’s not taxonomy
 
 Inheritance is overrated. Received wisdom that inheritance is the secret sauce of OO and EVERYTHING should use it everywhere possible.
 
 sparrow is a type of bird is a type of animal is a type of lifeform is a type of object.
 
-### Favour composition over inheritance.
-
-```csharp
-class GameObject { }
-class Player : GameObject { }
-class Enemy : GameObject { }
-class StrongEnemy : Enemy { }
-class Cloud : GameObject { }
-class Powerup : GameObject { }
-```
-
-```csharp
-class GameObject(Physics physics, Inventory inventory, SoundEffect soundEffect, Armour armour)
-```
-
-Some older UI libraries had (and still have) APIs that follow this sort of structure:
-
-```csharp
-class Component { }
-class Container : Component { }
-class Panel : Container { }
-class Window : Container { }
-class Button : Component { }
-class Textbox : Component { }
-class RadioButton : Component { }
-```
-
-In more modern UI libraries (React), there is no longer a forced hierarchy, eg `FlatList` extends `PureComponent`. Authoring new components is greatly simplified and favours composition:
-
-```ts
-ExampleComponent() : ReactComponent => {
-    <Text>This is a label</Text>;
-}
-```
-
-## It’s not mixins
+### It’s not mixins
 
 ISaveable
 
@@ -233,7 +238,7 @@ class Person : ISwim, IDive, IEatBread { }
 // unless they're coeliac
 ```
 
-## The DB model is not your domain model
+### The DB model is not your domain model
 
 Fossilised data as opposed to rich objects. No behaviour in relational DBs.
 
@@ -256,7 +261,43 @@ class PasswordHash
 {
     bool Matches(string plainText){...}
 }
+```
 
+# ---------------------------------------------------------------------------------------------
+
+## Favour composition over inheritance
+
+```csharp
+class GameObject { }
+class Player : GameObject { }
+class Enemy : GameObject { }
+class StrongEnemy : Enemy { }
+class Cloud : GameObject { }
+class Powerup : GameObject { }
+```
+
+```csharp
+class GameObject(Physics physics, Inventory inventory, SoundEffect soundEffect, Armour armour)
+```
+
+Some older UI libraries had (and still have) APIs that follow this sort of structure:
+
+```csharp
+class Component { }
+class Container : Component { }
+class Panel : Container { }
+class Window : Container { }
+class Button : Component { }
+class Textbox : Component { }
+class RadioButton : Component { }
+```
+
+In more modern UI libraries (React), there is no longer a forced hierarchy, eg `FlatList` extends `PureComponent`. Authoring new components is greatly simplified and favours composition:
+
+```ts
+ExampleComponent() : ReactComponent => {
+    <Text>This is a label</Text>;
+}
 ```
 
 ## Handler, manager and controller. Bad names for objects
@@ -289,7 +330,7 @@ class WeatherReport
 
 class WeatherManager
 {
-    public static bool ShouldWearJacket(WeatherReport report) => 
+    public static bool ShouldWearJacket(WeatherReport report) =>
         return report.Temperature < 10 || report.WindSpeed > 10 || report.PrecipitationMm > 5;
 
     public static bool IsBbqWeather(WeatherReport report) =>
@@ -338,9 +379,55 @@ class WeatherReport
 
 Find quote referring to design patterns being a way of patching up language features
 
-- Factory
+- Factory Method
+
+```csharp
+class WidgetFactory
+{
+    public Widget Create(WidgetType type, int size)
+    {
+        switch (type)
+        {
+            case WidgetType.Sprocket:
+                return new Sprocket(size);
+            case WidgetType.Cog:
+                return new Cog(size);
+            default:
+                throw new ArgumentException(nameof(type));
+        }
+    }
+}
+```
+
+```typescript
+function WidgetFactory(type: WidgetType, size: number) {
+  switch (type) {
+    case WidgetType.Sprocket:
+      return new Sprocket(size);
+    case WidgetType.Cog:
+      return new Cog(size);
+    default:
+      throw new Error("Unknown widget type");
+  }
+}
+```
+
 - Singleton (dependency injection to the rescue)
 - Iterator (IEnumerable)
+
+Allows iterating through a sequence of values without having to know the underlying data type.
+
+```csharp
+public interface IIterable
+{
+    bool HasNext();
+    object Next();
+}
+```
+
+This implemented in C# as a first-class language concept: `IEnumerable` (and the generic `IEnumerable<T>`).
+`foreach` will use the `IEnumerable<T>` methods transparently - caution should be made though to understand potential drawbacks, e.g. enumerating over a database query which may cause unnecessary db utilization.
+
 - Strategy (delegates)
 - Observer (event handlers) (C# event)
 - Adapter/ proxy/ wrapper
