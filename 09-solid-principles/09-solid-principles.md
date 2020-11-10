@@ -102,9 +102,9 @@ displayPerson(getPerson());
 
 AKA Trainwreck code
 
-Spooky action at a distance
-Difficulty reasoning about code
-Tight coupling
+- Spooky action at a distance
+- Difficulty reasoning about code
+- Tight coupling
 
 ```csharp
 emailService.EmailParser.CleanseString("Hello world");
@@ -115,6 +115,8 @@ emailService.EmailParser.CleanseString("Hello world");
 ```
 
 ### Interface Segregation Principle
+
+
 
 ### Dependency Injection Principle
 
