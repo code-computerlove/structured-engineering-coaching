@@ -2,6 +2,12 @@
 
 ## Goals
 
+Understanding of:
+- the origin of SOLID principles.
+- the Single Responsibility principle.
+- the Liskov Substitution principle.
+- the Law of Demeter.
+
 ## Content
 
 ### What is it?
@@ -28,31 +34,6 @@
   - `ls` - List contents of a directory
   - `ls | grep json$ | wc -l` - Count json files in current directory
 
-### Open-Closed Principle
-
-- A class/function/module should be open for extension, but closed for modification.
-- A fancy way of saying we should be able to modify it's behaviour without having to modify the thing itself.
-- Originally (in 1988), inheritance was proposed as a solution to this. Later, abstract base classes and interfaces became more popular approach:
-
-```csharp
-
-abstract class Table
-{
-  public void DrawTable(TableData data)
-  {
-    DrawHeader(data);
-    foreach (var row in data.Rows)
-    {
-      DrawRow(row);
-    }
-  }
-
-  protected abstract void DrawHeader(TableData data);
-  protected abstract void DrawRow(TableData row);
-}
-
-```
-
 ### Liskov Substitution Principle
 
 It should be possible to swap out an object with an instance of their subtype without altering the correctness of a program.
@@ -63,10 +44,11 @@ As we discussed in the previous session regarding `IEnumerable<T>` there may be 
 
 - Linux OS principle. Everything is a file.
 - A file can be read from (usually), or written to (usually)
-  - `/dev/null` - A black hole.
-  - `/dev/random` - A stream of random bytes.
+  - `/dev/null` - A black hole
+  - `/dev/random` - A stream of random bytes
   - `/dev/lp0` - A printer
   - `/dev/tty0` - A terminal session
+  - `/dev/clipboard` - A clipboard
 
 ```typescript
 function getName() {
@@ -110,17 +92,52 @@ AKA Trainwreck code
 emailService.EmailParser.CleanseString("Hello world");
 ```
 
+If we write classes to depend on an implementation of an interface rather than an actual concrete implementation we fall into a "pit of success", we can't see the internals because they're not exposed:
+
+this is more descriptive:
+
+```csharp
+interface IEmailService {
+  string CleanseString(string input);
+}
 ```
+
+than this interface, which doesn't actually expose any behaviour!:
+
+```csharp
+interface IEmailService {
+  IEmailParser EmailParser { get; }
+}
+```
+
+### Open-Closed Principle
+
+- A class/function/module should be open for extension, but closed for modification.
+- A fancy way of saying we should be able to modify it's behaviour without having to modify the thing itself.
+- Originally (in 1988), inheritance was proposed as a solution to this. Later, abstract base classes and interfaces became more popular approach:
+
+```csharp
+
+abstract class Table
+{
+  public void DrawTable(TableData data)
+  {
+    DrawHeader(data);
+    foreach (var row in data.Rows)
+    {
+      DrawRow(row);
+    }
+  }
+
+  protected abstract void DrawHeader(TableData data);
+  protected abstract void DrawRow(TableData row);
+}
 
 ```
 
 ### Interface Segregation Principle
 
-
-
 ### Dependency Injection Principle
-
-
 
 ### Further reading
 
