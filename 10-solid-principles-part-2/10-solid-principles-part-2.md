@@ -2,16 +2,34 @@
 ## Goals
 
 Understanding of:
-- Dependency injection principle
+- Dependency inversion principle
 - Interface segregation principle
 - Open closed principle
 - Law of Demeter
 
 ## Content
 
-## Dependency injection principle
+- Dependency inversion principle
+- Interface segregation principle
+- Open-closed principle
+- Law of Demeter
+
+## Dependency inversion principle
+
+1. High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g., interfaces).
+2. Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.
+
+Already covered in depth back in session 3.
 
 ## Interface segregation principle
+
+Created by Robert C. Martin whilst working for Xerox, building a new printer system that could do many jobs such as printing, stapling and faxing. As the system grew making even small changes became costly often necessitating a 1+ hour deployment.
+
+The system used a single `Job` class that was used by all tasks and therefore needed to know how to do everything even though each client only needed a small subset. We sometimes call such a thing a _god object_ or a _kitchen sink_.
+
+The solution to the problem that Martin suggested is what we now call the ISP. Breaking each tasks hard dependency on the `Job` class using dependency inversion and introducing a series of interfaces such as a staple job and a fax job.
+
+The `Job` class implemented all the required interfaces but by using DI and ISP, small changes no longer required a full rebuild.
 
 ## Open-closed principle
 

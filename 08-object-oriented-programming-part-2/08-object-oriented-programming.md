@@ -46,7 +46,8 @@ ExampleComponent() : ReactComponent => {
 ## Design patterns
 
 > Patterns mean "I have run out of language."
-— Rich Hickey.
+>
+> — Rich Hickey.
 
 ### Factory Method
 
