@@ -13,6 +13,7 @@ Understanding of:
 - Interface segregation principle
 - Open-closed principle
 - Law of Demeter
+- Not a magic bullet
 
 ## Dependency inversion principle
 
@@ -31,30 +32,29 @@ The solution to the problem that Martin suggested is what we now call the ISP. B
 
 The `Job` class implemented all the required interfaces but by using DI and ISP, small changes no longer required a full rebuild.
 
+> Clients should not be forced to depend upon interfaces that they do not use.
+>
+> -- Robert C. Martin.
+
 ## Open-closed principle
 
-- A class/function/module should be open for extension, but closed for modification.
-- A fancy way of saying we should be able to modify it's behaviour without having to modify the thing itself.
-- Originally (in 1988), inheritance was proposed as a solution to this. Later, abstract base classes and interfaces became more popular approach:
+> Software entities should be open for extension, but closed for modification.
+>
+> -- Bertrand Mayer, Object-Oriented Software Construction
 
-```csharp
+This was 1988 and to provide context, at that time modifying a library by adding fields or functions often had a large knock on effect to any software that relied on said library.
 
-abstract class Table
-{
-  public void DrawTable(TableData data)
-  {
-    DrawHeader(data);
-    foreach (var row in data.Rows)
-    {
-      DrawRow(row);
-    }
-  }
+In other words, the code was very tightly coupled.
 
-  protected abstract void DrawHeader(TableData data);
-  protected abstract void DrawRow(TableData row);
-}
+Meyer saw inheritance as a solution to this problem:
 
-```
+> A class is closed, since it may be compiled, stored in a library, baselined, and used by client classes. But it is also open, since any new class may use it as parent, adding new features. When a descendant class is defined, there is no need to change the original or to disturb its clients.
+>
+> -- Bertrand Mayer, Object-Oriented Software Construction
+
+By the mid-90s the community had switched instead to OCP via abstract base classes. In more modern times we might also use interfaces. In these cases, OCP was now applied to the abstraction of behaviour rather than concrete code.
+
+This shift in meaning has sometimes caused confusion around what OCP means but its usefulness extends beyond OO into other programming paradigms, package management and API design.
 
 ## Law of Demeter AKA the principle of least knowledge
 
@@ -62,6 +62,7 @@ AKA Trainwreck code
 
 - Spooky action at a distance
 - Difficulty reasoning about code
+- Violates encapsulation
 - Tight coupling
 
 ```csharp
@@ -85,6 +86,8 @@ interface IEmailService {
   IEmailParser EmailParser { get; }
 }
 ```
+
+## Not a magic bullet
 
 ## Further reading
 
