@@ -1,4 +1,4 @@
-# SOLID Principles
+# SOLID Principles Part 1
 
 ## Goals
 
@@ -6,17 +6,21 @@ Understanding of:
 - the origin of SOLID principles.
 - the Single Responsibility principle.
 - the Liskov Substitution principle.
-- the Law of Demeter.
 
 ## Content
 
-### What is it?
+- What is it?
+- The acronym
+- Single responsibility principle
+- Liskov substitution principle
+
+## What is it?
 
 - Five principles for better software architecture.
 - The principles were devised by Robert C Martin in early 2000's, the acronym came later.
 - Not laws, mostly opinions from individuals that have written and maintained lots of codebases.
 
-### The acronym
+## The acronym
 
 - Single Responsibility
 - Open-closed Principle
@@ -24,7 +28,7 @@ Understanding of:
 - Interface Segregation Principle
 - Dependency Inversion Principle
 
-### Single Responsibility
+## Single responsibility principle
 
 - "A class should only have one reason to change" - Robert C Martin.
 - *nix command principle - do one thing, and do it well.
@@ -34,7 +38,7 @@ Understanding of:
   - `ls` - List contents of a directory
   - `ls | grep json$ | wc -l` - Count json files in current directory
 
-### Liskov Substitution Principle
+## Liskov substitution principle
 
 It should be possible to swap out an object with an instance of their subtype without altering the correctness of a program.
 
@@ -79,66 +83,3 @@ displayPerson(getPerson());
   - Can sometimes violate this principle, e.g they can't be rewound `stream.Position = 0`, or they have to be rewound!.
   - `ZipStream`, `MemoryStream`, `StringStream`, etc.
   - `StreamReader`, `StreamWriter`.
-
-#### Law of Demeter AKA the principle of least knowledge
-
-AKA Trainwreck code
-
-- Spooky action at a distance
-- Difficulty reasoning about code
-- Tight coupling
-
-```csharp
-emailService.EmailParser.CleanseString("Hello world");
-```
-
-If we write classes to depend on an implementation of an interface rather than an actual concrete implementation we fall into a "pit of success", we can't see the internals because they're not exposed:
-
-this is more descriptive:
-
-```csharp
-interface IEmailService {
-  string CleanseString(string input);
-}
-```
-
-than this interface, which doesn't actually expose any behaviour!:
-
-```csharp
-interface IEmailService {
-  IEmailParser EmailParser { get; }
-}
-```
-
-### Open-Closed Principle
-
-- A class/function/module should be open for extension, but closed for modification.
-- A fancy way of saying we should be able to modify it's behaviour without having to modify the thing itself.
-- Originally (in 1988), inheritance was proposed as a solution to this. Later, abstract base classes and interfaces became more popular approach:
-
-```csharp
-
-abstract class Table
-{
-  public void DrawTable(TableData data)
-  {
-    DrawHeader(data);
-    foreach (var row in data.Rows)
-    {
-      DrawRow(row);
-    }
-  }
-
-  protected abstract void DrawHeader(TableData data);
-  protected abstract void DrawRow(TableData row);
-}
-
-```
-
-### Interface Segregation Principle
-
-### Dependency Injection Principle
-
-### Further reading
-
-https://web.archive.org/web/20060822033314/http://www.objectmentor.com/resources/articles/ocp.pdf
