@@ -9,11 +9,42 @@ Understanding of:
 
 ## Content
 
+- Law of Demeter
 - Dependency inversion principle
 - Interface segregation principle
 - Open-closed principle
-- Law of Demeter
 - Not a magic bullet
+
+## Law of Demeter AKA the principle of least knowledge
+
+AKA Trainwreck code
+
+- Spooky action at a distance
+- Difficulty reasoning about code
+- Violates encapsulation
+- Tight coupling
+
+```csharp
+emailService.EmailParser.CleanseString("Hello world");
+```
+
+If we write classes to depend on an implementation of an interface rather than an actual concrete implementation we fall into a "pit of success", we can't see the internals because they're not exposed:
+
+this is more descriptive:
+
+```csharp
+interface IEmailService {
+  string CleanseString(string input);
+}
+```
+
+than this interface, which doesn't actually expose any behaviour!:
+
+```csharp
+interface IEmailService {
+  IEmailParser EmailParser { get; }
+}
+```
 
 ## Dependency inversion principle
 
@@ -55,37 +86,6 @@ Meyer saw inheritance as a solution to this problem:
 By the mid-90s the community had switched instead to OCP via abstract base classes. In more modern times we might also use interfaces. In these cases, OCP was now applied to the abstraction of behaviour rather than concrete code.
 
 This shift in meaning has sometimes caused confusion around what OCP means but its usefulness extends beyond OO into other programming paradigms, package management and API design.
-
-## Law of Demeter AKA the principle of least knowledge
-
-AKA Trainwreck code
-
-- Spooky action at a distance
-- Difficulty reasoning about code
-- Violates encapsulation
-- Tight coupling
-
-```csharp
-emailService.EmailParser.CleanseString("Hello world");
-```
-
-If we write classes to depend on an implementation of an interface rather than an actual concrete implementation we fall into a "pit of success", we can't see the internals because they're not exposed:
-
-this is more descriptive:
-
-```csharp
-interface IEmailService {
-  string CleanseString(string input);
-}
-```
-
-than this interface, which doesn't actually expose any behaviour!:
-
-```csharp
-interface IEmailService {
-  IEmailParser EmailParser { get; }
-}
-```
 
 ## Not a magic bullet
 
