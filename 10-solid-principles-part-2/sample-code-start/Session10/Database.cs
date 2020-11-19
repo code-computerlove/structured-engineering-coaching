@@ -36,19 +36,6 @@ namespace Session10
 				.GetTableReference("widget");
 		}
 
-		public async Task<Widget> Get(StockCode stockCode)
-		{
-			var operation = TableOperation.Retrieve<WidgetEntity>(stockCode.Category, stockCode.Id);
-			TableResult result = await _cloudTable.ExecuteAsync(operation);
-			var entity = result.Result as WidgetEntity;
-
-			return new Widget
-			{
-				StockCode = new StockCode {Category = entity.PartitionKey, Id = entity.RowKey},
-				Description = entity.Description
-			};
-		}
-
 		public async Task Put(Widget widget)
 		{
 			var entity = new WidgetEntity
@@ -59,6 +46,50 @@ namespace Session10
 			};
 			var operation = TableOperation.InsertOrReplace(entity);
 			await _cloudTable.ExecuteAsync(operation);
+		}
+
+		/*public async Task<Widget> Get(StockCode stockCode)
+		{
+			var operation = TableOperation.Retrieve<WidgetEntity>(stockCode.Category.ToLowerInvariant(),
+				stockCode.Id.ToLowerInvariant());
+			TableResult result = await _cloudTable.ExecuteAsync(operation);
+			var entity = result.Result as WidgetEntity;
+
+			return new Widget
+			{
+				StockCode = new StockCode {Category = entity.PartitionKey, Id = entity.RowKey},
+				Description = entity.Description
+			};
+		}*/
+
+		/*public IList<Widget> GetAll()
+		{
+			var widgets =
+				_cloudTable
+					.CreateQuery<WidgetEntity>()
+					.Select(x => new Widget
+					{
+						Description = x.Description,
+						StockCode = new StockCode {Category = x.PartitionKey, Id = x.RowKey}
+					}).ToList();
+
+			return widgets;
+		}*/
+	}
+
+	public class NewWidgetInserter
+	{
+		private readonly WidgetAzureTable _widgetAzureTable;
+
+		public NewWidgetInserter(WidgetAzureTable widgetAzureTable)
+		{
+			_widgetAzureTable = widgetAzureTable;
+		}
+
+		public async Task AddOrUpdateWidget(Widget widget)
+		{
+			// ....
+			await _widgetAzureTable.Put(widget);
 		}
 	}
 }
