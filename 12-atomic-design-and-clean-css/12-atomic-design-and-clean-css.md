@@ -2,17 +2,31 @@
 
 ## Goals
 
-Understanding of:
+By the end of the session you will understand:
+
+- The importance of design revolving around components rather than pages.
+- How atomic design supports this.
+- The importance of keeping CSS clean.
+- How BEM supports this.
 
 ## Content
 
-## Design
+- A brief history of web design
+- Design systems
+- Atomic design
+- The ball of mud
+- Block, element, modifier methodology (BEM)
+- CSS in JS
 
-Print -> Web -> Responsive/ adaptive
+## A brief history of web design
+
+In the beginning, there was the cave painting. Skip a little bit to the late 90s.
 
 ### Works best in 800x600
 
-90s - Everyone used browsers full screen at 800x600 and later 1024x768 with at least 65,536 colours. Slicing up tables was the order of the day.
+Super VGA (SVGA) had made the default desktop resolution 800x600 (in at least 256 colours!). Whilst Windows 95 had windows (surprise!) only psychopaths would browse the Internet un-maximised. This was probably the only time in history where you could be reasonably certain how the vast majority of users would view your site and could design accordingly. It was quite common to design in Photoshop and then slice your site up into an HTML table.
+
+When XGA (1024x768) started gaining traction, no joke, numerous websites had to be redesigned.
 
 | Bit depth | # colours      |                 |
 | --------- | -------------- | --------------- |
@@ -47,17 +61,25 @@ Print -> Web -> Responsive/ adaptive
 | QHD      | 16:9         | 2560  | 1440   |
 | 4K UHD   | 16:9         | 3840  | 2160   |
 
-We're way past "best in 800x600"!
+There are now numerous possible aspect ratios and resolutions. And only psychopaths browse the Internet with their browser window maximised.
+
+We're way past "works best in 800x600"! We need to think about websites that work in any aspect ratio and resolution.
 
 ### Responsive websites
+
+A new, totally old idea.
 
 Automatically adjust for different screen sizes and viewports.
 
 Responsive websites respond to the size of the browser at any given point. No matter what the browser width may be, the site adjusts its layout (and perhaps functionality) in a way that is optimized to the screen.
 
+The web was always intended to be responsive. The main challenge is trying to get stakeholders to let go of their obsession with pixel perfect designs.
+
 ### Adaptive websites
 
 Adaptive websites adapt to the width of the browser at a specific points. In other words, the website is only concerned about the browser being a specific width, at which point it adapts the layout.
+
+Allows for the same site to work intelligently on both "desktop" and "mobile".
 
 ## Design systems
 
@@ -71,15 +93,17 @@ Patterns in user flow, content strategy, copy, and tone of voice.
 
 To create a cohesive feel.
 
-## Atomic design
+Since this all exists in the world of designers it can end up feeling a bit abstract.
 
-> Atomic design is a methodology for creating design systems.
->
-> -- Brad Frost
+## Atomic design
 
 > Atomic design gives us the ability to traverse from abstract to concrete.
 >
 > -- Brad Frost
+
+Atomic design provides a clear methodology for crafting design systems. Clients and team members are able to better appreciate the concept of design systems by actually seeing the steps laid out in front of them.
+
+Atomic design gives us the ability to traverse from abstract to concrete. Because of this, we can create systems that promote consistency and scalability while simultaneously showing things in their final context. And by assembling rather than deconstructing, we’re crafting a system right out of the gate instead of cherry picking patterns after the fact.
 
 ### Atoms
 
@@ -121,13 +145,9 @@ The page stage is essential as it’s where we test the effectiveness of the des
 
 Pages are also the place to test variations in templates. For example, you might want to articulate what a headline containing 40 characters looks like, but also demonstrate what 340 characters looks like. What does it look like when a user has one item in their shopping cart versus 10 items with a discount code applied? Again, these specific instances influence how we loop back through and construct our system.
 
-### Why atomic design
+## The ball of mud
 
-Atomic design provides a clear methodology for crafting design systems. Clients and team members are able to better appreciate the concept of design systems by actually seeing the steps laid out in front of them.
-
-Atomic design gives us the ability to traverse from abstract to concrete. Because of this, we can create systems that promote consistency and scalability while simultaneously showing things in their final context. And by assembling rather than deconstructing, we’re crafting a system right out of the gate instead of cherry picking patterns after the fact.
-
-## A problem with CSS
+A problem with CSS.
 
 The slow slide into a ball of mud.
 
