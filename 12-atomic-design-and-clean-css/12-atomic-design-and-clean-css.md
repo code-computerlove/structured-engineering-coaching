@@ -16,7 +16,7 @@ By the end of the session you will understand:
 - Atomic design
 - The ball of mud
 - Block, element, modifier methodology (BEM)
-- CSS in JS
+- Other methodologies
 
 ## A brief history of web design
 
@@ -162,15 +162,12 @@ Treat CSS the same way you'd treat any part of the code base. Clean code.
 Developed at Yandex, its goal is to help developers better understand the relationship between the HTML and CSS in a given project.
 
 Blocks
-Elements
+Element
 Modifiers
 
 Metaphor - hand = block, element = finger and modifier = index finger
 
-Inverted triangle CSS.
-Most selectors for blocks -> Least selectors for modifiers.
+## Other methodologies
 
-## CSS in JS
-
-Styled components rather than CSS modules.
-The future?
+- Inverted triangle CSS.
+- CSS-in-JS
