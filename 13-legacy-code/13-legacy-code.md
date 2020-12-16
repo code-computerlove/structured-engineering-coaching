@@ -15,15 +15,21 @@
 - Disk space
 - User credentials instead of system accounts
 - Third party APIs
-- Libraries
+- Libraries. Deprecation. Vendor death (leftpad).
+- System updates (Andy's crypto story)
 
 ## How to prevent or quickly identify rot
 
 - Less-trodden paths.
-- Abandoned but functioning.
+  - Monthly reports, rarely used features.
+  - Worst-case: data loss.
+- 'Abandoned' but functioning.
+  - Important daily scheduled tasks
+  - Message handlers
+  - Too important to touch. Desktop machine with warning post-it 'DO NOT TURN OFF!'
 - Automated lawn mowers:
-    - Acceptance tests for key user journeys.
-    - Scheduled automated builds.
+    - Acceptance tests for key user journeys. Probably less than 5. Not annoying!
+    - Scheduled automated builds. Azure DevOps. Travis. CircleCI. Teamcity. Octopus Deploy.
 - Regular maintenance. Updating frameworks/ dependencies to supported versions.
 
 ## Build for legacy
